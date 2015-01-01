@@ -1,11 +1,20 @@
 #!/usr/bin/env python
 
 import time
-import RPi.GPIO as GPIO
+
+try:
+    import RPi.GPIO as GPIO
+except RuntimeError:
+    print("Error importing RPi.GPIO!  This is probably because you need superuser privileges.  You can achieve this by using 'sudo' to run your script")
+
+#import RPi.GPIO as GPIO
 
 def main():
 
+    #GPIO.setmode(GPIO.BOARD)
     GPIO.setmode(GPIO.BCM)
+
+    #GPIO.setwarnings(False)
 
     GPIO.setup(23,GPIO.IN)
     GPIO.setup(24,GPIO.OUT)
@@ -33,4 +42,7 @@ def main():
 
 
 if __name__=="__main__":
-    main()
+   try:
+      main()
+   except KeyboardInterrupt:
+        GPIO.cleanup()

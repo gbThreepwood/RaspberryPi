@@ -25,7 +25,7 @@ def main():
     # Call the button event handler function whenever
     # GPIO pin 23 goes low. 
     GPIO.add_event_detect(23,GPIO.FALLING)
-    GPIO.add_event_callback(23,buttonEventHandler,100)
+    GPIO.add_event_callback(23,buttonEventHandler)
 
 
     GPIO.output(25,False)
@@ -44,4 +44,7 @@ def main():
 
 
 if __name__=="__main__":
-    main()
+   try:
+      main()
+   except:
+      GPIO.cleanup()
